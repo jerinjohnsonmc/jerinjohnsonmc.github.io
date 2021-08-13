@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<!-- saved from url=(0118)http://ilis.krsnaadiagnostics.com/Patient_ReportDetails?PatientID=aaa0281a-b4a2-47b9-8162-99cd69731718&VisitID=8290526 -->
+<html lang="en" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths" style=""><!--<![endif]--><!-- BEGIN HEAD --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta content="width=device-width, initial-scale=1" name="viewport"><meta name="description"><meta name="author">
+
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="./Patient Report Details_files/css" rel="stylesheet" type="text/css"><link href="./Patient Report Details_files/font-awesome.min.css" rel="stylesheet" type="text/css"><link href="./Patient Report Details_files/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="./Patient Report Details_files/uniform.default.css" rel="stylesheet" type="text/css"><link href="./Patient Report Details_files/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <!-- BEGIN THEME STYLES -->
+    <!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
+   <link id="style_components" href="./Patient Report Details_files/components-rounded.css" rel="stylesheet" type="text/css"><link href="./Patient Report Details_files/plugins.css" rel="stylesheet" type="text/css"><link href="./Patient Report Details_files/layout.css" rel="stylesheet" type="text/css"><link id="style_color" href="./Patient Report Details_files/blue.css" rel="stylesheet" type="text/css"><link href="./Patient Report Details_files/custom.css" rel="stylesheet" type="text/css">
+    <!-- END THEME STYLES -->
+
+    <link href="http://ilis.krsnaadiagnostics.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    <!-- BEGIN JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+    <!--[if lt IE 9]>
+        <script src="~/assets/global/plugins/respond.min.js"></script>
+        <script src="~/assets/global/plugins/excanvas.min.js"></script> 
+    <![endif]-->
+   <script src="./Patient Report Details_files/jquery.min.js.download" type="text/javascript"></script>
+    <script src="./Patient Report Details_files/jquery-migrate.min.js.download" type="text/javascript"></script>
+
+    <script src="./Patient Report Details_files/modernizr-2.6.2.js.download"></script>
+<script src="./Patient Report Details_files/jquery-ui.min.js.download"></script>
+<script src="./Patient Report Details_files/jquery.blockui.min.js.download"></script>
+<script src="./Patient Report Details_files/jquery.uniform.min.js.download"></script>
+<script src="./Patient Report Details_files/bootstrap-hover-dropdown.min.js.download"></script>
+<script src="./Patient Report Details_files/jquery.slimscroll.min.js.download"></script>
+<script src="./Patient Report Details_files/jquery.cokie.min.js.download"></script>
+
+
+    <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src="./Patient Report Details_files/jquery-ui.min.js.download" type="text/javascript"></script>
+    <script src="./Patient Report Details_files/bootstrap.min.js.download" type="text/javascript"></script>
+    <script src="./Patient Report Details_files/jquery.slimscroll.min.js.download" type="text/javascript"></script>
+
+    <!-- END CORE PLUGINS -->
+
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="./Patient Report Details_files/metronic.js.download" type="text/javascript"></script>
+    <script src="./Patient Report Details_files/layout.js.download" type="text/javascript"></script>
+
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <script>
+        $(document).ready(function() {
+            Metronic.init(); // init metronic core componets
+            Layout.init(); // init layout
+            console.log('Plugins loaded');
+        });
+    </script>
+
+     <script type="text/javascript">
+
+         var timeInSecondsAfterSessionOut; // change this to change session time out (in seconds).
+         var secondTick = 0;
+
+         function ResetThisSession(timeout) {
+             secondTick = 0;
+             timeInSecondsAfterSessionOut = timeout;
+         }
+
+         function StartThisSessionTimer() {
+             secondTick++;
+             var timeLeft = ((timeInSecondsAfterSessionOut - secondTick) / 60).toFixed(0); // in minutes
+             timeLeft = timeInSecondsAfterSessionOut - secondTick; // override, we have 30 secs only 
+
+             var minutes = (Math.floor(timeLeft / 60));
+             var finalseconds = timeLeft - minutes * 60;
+
+             if (secondTick > timeInSecondsAfterSessionOut) {
+                 clearTimeout(tick);
+                 window.location = "../../Logout.aspx";
+                 return;
+             }
+             tick = setTimeout("StartThisSessionTimer()", 1000);
+         }
+
+         StartThisSessionTimer();
+
+     </script>
+
+    <script type="text/javascript">
+
+        function SessionExpireAlert(timeout) {
+            ResetThisSession(timeout);
+        };
+
+    </script>
+    
+    <style type="text/css">
+        .page-content-wrapper2 .page-content {
+            /* margin-left: 235px; */
+            margin-top: 0px;
+            min-height: 600px;
+            padding: 05px 20px 10px 20px;
+            background: white !important;
+        }
+    </style>
+    
+    <title>Patient Report Details</title>
+
+    <link rel="stylesheet" type="text/css" href="./Patient Report Details_files/dataTables.bootstrap.css">
+
+    <link rel="stylesheet" type="text/css" href="./Patient Report Details_files/toastr.min.css">
+    <script type="text/javascript" src="./Patient Report Details_files/toastr.min.js.download"></script>
+
+    <script type="text/javascript">
+        function pageLoad(sender, args) {
+            ProcessJqueryPlugins();
+        }
+
+        function PrintReportsByVisitID(pdfFileUrl, waitSeconds, Visitid) {
+            setTimeout(function () { OpenReportPage(pdfFileUrl, Visitid); }, waitSeconds);
+        }
+
+        function CustomToastrAlert(message1, message2, type) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "2000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            if (type == 'SUCCESS')
+                toastr.success(message1, message2);
+            else if (type == 'ERROR')
+                toastr.error(message1, message2);
+        }
+
+        function OpenReportPage(pdfFileUrl, Visitid) {
+
+            CustomToastrAlert("Download Report of Visit ID : " + Visitid, "Downloading", "SUCCESS");
+            //var myWindow = window.open(pdfFileUrl, "", "width=200, height=100");
+            var myWindow = window.open(pdfFileUrl);
+            this.window.focus();
+        }
+
+    </script>
+
+<title>
+
+</title></head>
+<body class="page-container-bg-solid">
+    <form method="post" action="http://ilis.krsnaadiagnostics.com/Patient_ReportDetails?PatientID=aaa0281a-b4a2-47b9-8162-99cd69731718&amp;VisitID=8290526" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="3b1BXoMxLU/uN5v3PE946W7+IpJvAWGZvq5dhvDOwRMOGxSRgiotxoYu7xJxVFuxFqlm/EWsqqO3vNpSVrY13twTBqlIQou4Ra7+17Z/r+N3RYikRirgBaFnWIE/BxXYQVYprVpFc2CaVUHGiQyU2iLOLdDrs1iyvkNcahARIvGrwai/Gdv+v8pSqRD0XQV0fVATFKpk1+KwK+0uxIGm1zlG/Vrkcy3SAg6kGehK6S4jMcTdlA62kBYogBPPEt5k1DR3LpbIbImMyTDY5FuT5Fn7FL0Z/9HQgZwi+5hrJP9czbF+/R9v2x9gPB2ozNX4gIhwXIHtX0sxKyDsNu51I2hbSS39vWuWzZuVv4qkW0Ab/LvK74/p6SgfdFQapT0AKZagIWRZVXp2T15yqxe2hyznmhWuQKtbqqh7tnUmJN7b2OvZx/BX5/+Uh9h5Rd25b7aCKewY6S9o/FG4xUiStM26P9vNgb56xegXy4V8lwc/Qy3oHXihTPSXcibOx18+KX65CIQLZg2ENrp9VSSUIE/rmPIy0fKeNSJysgXWiFT7QuUGG185AC+3PvCxfBi6Z//tt8A9FyZo+hhImmHrhgtzOmFw2nA0UTBcdWWDgyMd8yB6vK02e7cGOe/S0A9yubxdmIkRQJYzH+Uk31/CR9Rt4SDQnLhCJWuW78z1o27WqmWKWk0EHAeGR5QXtgR5BI/SrgWaI7wmEybArbDHl4p2uavgIXfV8wMpRORqEHUlQKQAED1C3a3oKL7JjzH4">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="./Patient Report Details_files/WebResource.axd" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+SessionExpireAlert(2700);//]]>
+</script>
+
+<script src="./Patient Report Details_files/ScriptResource.axd" type="text/javascript"></script>
+<script src="./Patient Report Details_files/ScriptResource(1).axd" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="45BDE3F7">
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="6KenQ/KVLLHLo9H0tthy4nsEJ5QHUjnBDgSzFRWcnrDeuQdRHQrgV1Dnen7Aai4l/KEcBoRqzDrKZ9xhBoauCM1YfBYqhjhc55EgHHxy0EH9Ufw1Q7eP8FiAZPqKieZy8GRPH0dpLFzZXIGLiZloj+KP4gLXhOnAmdVaB9j/JxO4ksuYRWdtattatLC9pV2dnUDAwxXjtWuC1XvLzfI60oR5H5oaEe0sMc3E4XYsntSXEtwrD+waPuQmqfvwiRWr">
+</div>
+        <div class="page-container">
+            <div class="page-content-wrapper2">
+                <div class="page-content" style="min-height:904px">
+                    
+    <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$MainContent$ctl00', 'form1', ['tctl00$MainContent$updatePanel1','MainContent_updatePanel1'], [], [], 90, 'ctl00');
+//]]>
+</script>
+
+
+    <div id="MainContent_updatePanel1">
+	
+            <input type="hidden" name="ctl00$MainContent$hdnPatientID" id="MainContent_hdnPatientID" value="aaa0281a-b4a2-47b9-8162-99cd69731718">
+            <input type="hidden" name="ctl00$MainContent$hdnPatientVisitID" id="MainContent_hdnPatientVisitID" value="8290526">
+            <input type="hidden" name="ctl00$MainContent$hdnPatient_ReportURL" id="MainContent_hdnPatient_ReportURL">
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="portlet light">
+                            <div class="portlet-body">
+                                <div class="portlet grey-cascade box">
+                                    <div class="portlet-title">
+                                        <h4 class="box-title">
+                                            <span id="MainContent_Label1" style="float: left">Patient Details</span></h4>
+                                        <br>
+                                        <br>
+                                    </div>
+                                    <div class="portlet-body">
+                                        
+                                        <div id="MainContent_divResults">
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Registered On  :  </label>
+                                                        <span id="MainContent_lblRegisteredOn" style="color:Blue;font-weight:bold;">08/13/2021 6:58:43 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Patient Name  :  </label>
+                                                        <span id="MainContent_lblPatientName" style="color:Blue;font-weight:bold;">JERIN JOHNS  </span>
+                                                        <input type="hidden" name="ctl00$MainContent$hdnWoeDate" id="MainContent_hdnWoeDate" value="4/27/2021 12:00:00 AM">
+                                                        <input type="hidden" name="ctl00$MainContent$hdnPatient_Code" id="MainContent_hdnPatient_Code" value="JNHP210400417142">
+                                                        <input type="hidden" name="ctl00$MainContent$hdnOwnerID" id="MainContent_hdnOwnerID" value="100493">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Gender  :  </label>
+                                                        <span id="MainContent_lblGender" style="color:Blue;font-weight:bold;">M</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Barcode  :  </label>
+                                                        <span id="MainContent_lblBarcode" style="color:Blue;font-weight:bold;">21450848</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="MainContent_divFinalResult" class="row" style="margin-left: 3px;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div>
+		<div id="MainContent_PatientMasterGrid_wrapper" class="dataTables_wrapper no-footer"><div class="row"><div class="col-md-6 col-sm-12"></div><div class="col-md-6 col-sm-12"></div></div><div class="table-scrollable"><table class="table table-bordered table-condensed table-hover dataTable no-footer" cellspacing="0" rules="all" border="1" id="MainContent_PatientMasterGrid" style="border-collapse:collapse;" role="grid">
+			<thead>
+				<tr class="heading" role="row"><th scope="col" class="sorting" tabindex="0" aria-controls="MainContent_PatientMasterGrid" rowspan="1" colspan="1" aria-label="Test: activate to sort column ascending" style="width: 1055px;">Test</th><th scope="col" class="sorting" tabindex="0" aria-controls="MainContent_PatientMasterGrid" rowspan="1" colspan="1" aria-label="Final Result: activate to sort column ascending" style="width: 696px;">Final Result</th></tr>
+			</thead><tbody>
+				
+			<tr role="row" class="odd">
+					<td align="left" style="width:15%;">COVID-19 QUALITATIVE PCR</td><td align="left" style="width:10%;"> NEGATIVE</td>
+				</tr></tbody>
+		</table></div><div class="row"><div class="col-md-5 col-sm-12"></div><div class="col-md-7 col-sm-12"></div></div></div>
+	</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label>&nbsp;</label>
+                                                    <div class="form-group" style="padding: 8px 16px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        
+</div>
+
+    <div id="MainContent_updateProgress1" style="display:none;" role="status" aria-hidden="true">
+	
+            <div class="divWaiting">
+                <img id="MainContent_imgLoadingtab12" src="./Patient Report Details_files/ajax-loader1.gif" style="z-index: 50;">
+                <div class="label bg-aqua">Please wait....</div>
+            </div>
+        
+</div>
+
+    <script src="./Patient Report Details_files/jquery.min.js.download" type="text/javascript"></script>
+    <script src="./Patient Report Details_files/bootstrap.min.js.download" type="text/javascript"></script>
+
+    <script type="text/javascript" src="./Patient Report Details_files/jquery.dataTables.min.js.download"></script>
+    <script type="text/javascript" src="./Patient Report Details_files/dataTables.tableTools.min.js.download"></script>
+    <script type="text/javascript" src="./Patient Report Details_files/dataTables.bootstrap.js.download"></script>
+
+    <script type="text/javascript">
+        function ProcessJqueryPlugins() {
+            try {
+                $('#MainContent_PatientMasterGrid').dataTable({
+                    "bPaginate": false,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bsort": false,
+                    "bordering": true,
+                    "aaSorting": [],
+                    "bAutoWidth": true
+                });
+            } catch (ex) {
+                //alert(ex);
+            }
+        }
+    </script>
+
+    <style type="text/css">
+        .divWaiting {
+            position: absolute;
+            background-color: #FAFAFA;
+            z-index: 2147483647 !important;
+            opacity: 0.8;
+            overflow: hidden;
+            text-align: center;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            padding-top: 20%;
+        }
+    </style>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- BEGIN CONTAINER -->
+
+    
+
+<script type="text/javascript">
+//<![CDATA[
+Sys.Application.add_init(function() {
+    $create(Sys.UI._UpdateProgress, {"associatedUpdatePanelId":"MainContent_updatePanel1","displayAfter":500,"dynamicLayout":true}, null, null, $get("MainContent_updateProgress1"));
+});
+//]]>
+</script>
+</form>
+    <!-- BEGIN FOOTER -->
+   
+    <!-- END FOOTER -->
+
+
+
+</body></html>
